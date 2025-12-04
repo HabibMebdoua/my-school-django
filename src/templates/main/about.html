@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}عن المدرسة - My School{% endblock %}
+
+{% block content %}
+<div class="container-fluid bg-light py-5">
+    <div class="container">
+        <!-- رأس الصفحة -->
+        <div class="text-center mb-5">
+            <h1 class="display-3 font-weight-bold text-primary mb-3">
+                <i class="fas fa-school mr-3"></i>عن المدرسة
+            </h1>
+            <p class="lead text-muted">
+                <i class="fas fa-info-circle mr-2"></i>تعرف على مدرستنا والمعلومات الأساسية عنها
+            </p>
+        </div>
+
+        <div class="row">
+            <!-- معلومات المدرسة -->
+            <div class="col-lg-6 mb-4">
+                <div class="card shadow-lg border-0 h-100">
+                    <div class="card-header bg-primary text-white py-4">
+                        <h3 class="card-title mb-0">
+                            <i class="fas fa-building mr-2"></i>معلومات المدرسة
+                        </h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <!-- اسم المدرسة -->
+                        <div class="mb-4 pb-3 border-bottom">
+                            <h5 class="text-primary font-weight-bold mb-2">
+                                <i class="fas fa-tag text-info mr-2"></i>اسم المدرسة
+                            </h5>
+                            <p class="h4 text-dark mb-0">{{ school_name }}</p>
+                        </div>
+
+                        <!-- عدد التلاميذ -->
+                        <div class="mb-4 pb-3 border-bottom">
+                            <h5 class="text-primary font-weight-bold mb-2">
+                                <i class="fas fa-users text-success mr-2"></i>عدد التلاميذ
+                            </h5>
+                            <div class="d-flex align-items-center">
+                                <span class="h3 text-success font-weight-bold mb-0">{{ students_count }}</span>
+                                <span class="text-muted ml-2">تلميذ وتلميذة</span>
+                            </div>
+                        </div>
+
+                        <!-- المدير/المديرة -->
+                        <div>
+                            <h5 class="text-primary font-weight-bold mb-2">
+                                <i class="fas fa-user-tie text-warning mr-2"></i>تحت إشراف
+                            </h5>
+                            <p class="mb-2">
+                                <strong class="text-dark d-block">{{ principal_name }}</strong>
+                                <small class="text-muted">{{ principal_title }}</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- الموقع الجغرافي -->
+            <div class="col-lg-6 mb-4">
+                <div class="card shadow-lg border-0 h-100">
+                    <div class="card-header bg-success text-white py-4">
+                        <h3 class="card-title mb-0">
+                            <i class="fas fa-map-marker-alt mr-2"></i>الموقع الجغرافي
+                        </h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <!-- الولاية -->
+                        <div class="mb-4 pb-3 border-bottom">
+                            <h5 class="text-success font-weight-bold mb-2">
+                                <i class="fas fa-globe text-info mr-2"></i>الولاية
+                            </h5>
+                            <p class="h5 text-dark mb-0">{{ location.wilaya }}</p>
+                        </div>
+
+                        <!-- الدائرة -->
+                        <div class="mb-4 pb-3 border-bottom">
+                            <h5 class="text-success font-weight-bold mb-2">
+                                <i class="fas fa-flag text-warning mr-2"></i>الدائرة
+                            </h5>
+                            <p class="h5 text-dark mb-0">{{ location.daira }}</p>
+                        </div>
+
+                        <!-- القرية -->
+                        <div>
+                            <h5 class="text-success font-weight-bold mb-2">
+                                <i class="fas fa-home text-danger mr-2"></i>القرية
+                            </h5>
+                            <p class="h5 text-dark mb-0">{{ location.village }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- بطاقة معلومات إضافية -->
+        <div class="row mt-5">
+            <div class="col-md-4 mb-3">
+                <div class="card text-center shadow-sm border-left-primary h-100">
+                    <div class="card-body p-4">
+                        <i class="fas fa-graduation-cap fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title font-weight-bold">تعليم متميز</h5>
+                        <p class="card-text text-muted small">برامج تعليمية حديثة ومتطورة</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card text-center shadow-sm border-left-success h-100">
+                    <div class="card-body p-4">
+                        <i class="fas fa-chalkboard-teacher fa-3x text-success mb-3"></i>
+                        <h5 class="card-title font-weight-bold">كوادر متخصصة</h5>
+                        <p class="card-text text-muted small">معلمون ومعلمات ذوو خبرة عالية</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card text-center shadow-sm border-left-info h-100">
+                    <div class="card-body p-4">
+                        <i class="fas fa-book fa-3x text-info mb-3"></i>
+                        <h5 class="card-title font-weight-bold">مكتبة علمية</h5>
+                        <p class="card-text text-muted small">موارد تعليمية شاملة ومتنوعة</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- زر العودة -->
+        <div class="text-center mt-5">
+            <a href="{% url 'home' %}" class="btn btn-primary btn-lg">
+                <i class="fas fa-arrow-right mr-2"></i>العودة إلى الصفحة الرئيسية
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .border-left-primary {
+        border-left: 5px solid #007bff !important;
+    }
+
+    .border-left-success {
+        border-left: 5px solid #28a745 !important;
+    }
+
+    .border-left-info {
+        border-left: 5px solid #17a2b8 !important;
+    }
+
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+    }
+</style>
+{% endblock %}
