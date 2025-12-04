@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}النصائح - {{ year_name }} - My School{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- رأس الصفحة -->
+    <div class="bg-info text-white py-4 mb-5 rounded-lg">
+        <div class="container">
+            <h1 class="display-4 font-weight-bold">
+                <i class="fas fa-lightbulb mr-3"></i>نصائح {{ year_name }}
+            </h1>
+            
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <!-- محتوى النصائح الرئيسي -->
+            <div class="col-lg-8">
+                {% if tips %}
+                {% for subject, subject_tips in tips_by_subject.items %}
+                <div class="mb-5">
+                    <h3 class="h4 font-weight-bold text-info mb-4 border-bottom pb-2">
+                        <i class="fas fa-graduation-cap mr-2"></i><span class="badge badge-info">{{ subject }}</span>
+                    </h3> {% for tip in subject_tips %}
+                    <div class="card mb-3 shadow-sm border-left-info">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="card-title font-weight-bold text-dark">{{ tip.title }}</h5>
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    {{ tip.created_at|date:"d M Y" }}
+                                </small>
+                            </div>
+
+                            <p class="card-text text-muted mb-3" style="line-height: 1.6;">
+                                {{ tip.content|linebreaks }}
+                            </p>
+
+                            <span class="badge badge-secondary">{{ subject }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <i class="fas fa-info-circle"></i> لا توجد نصائح لهذه السنة حالياً
+                    <button type="button" class="close" data-dismiss="alert" aria-label="إغلاق">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- الشريط الجانبي -->
+            <div class="col-lg-4">
+                <!-- إحصائيات -->
+                <div class="card shadow-sm mb-4 border-left-info">
+                    <div class="card-header bg-info text-white">
+                        <h6 class="m-0 font-weight-bold"><i class="fas fa-chart-pie mr-2"></i>إحصائيات</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <span class="text-muted"><i class="fas fa-lightbulb mr-2"></i>إجمالي النصائح:</span>
+                            <h4 class="mb-0 text-info font-weight-bold">{{ total_tips }}</h4>
+                        </div>
+                        <div class="mb-3">
+                            <span class="text-muted"><i class="fas fa-calendar-alt mr-2"></i>السنة الدراسية:</span>
+                            <p class="mb-0 font-weight-bold">{{ year_name }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الموضوعات -->
+                {% if tips_by_subject %}
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-light border-bottom">
+                        <h6 class="m-0 font-weight-bold text-dark">
+                            <i class="fas fa-tags"></i> الموضوعات
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        {% for subject, subject_tips in tips_by_subject.items %}
+                        <a href="#{{ subject }}" class="btn btn-sm btn-light btn-block text-left mb-2">
+                            <i class="fas fa-bookmark text-info mr-2"></i><span class="badge badge-info">
+                               
+                            {{ subject }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- الملاحة -->
+                <div class="card shadow-sm">
+                    <div class="card-header bg-light border-bottom">
+                        <h6 class="m-0 font-weight-bold text-dark">
+                            <i class="fas fa-arrow-left"></i> الملاحة
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url 'lessons:year1' %}" class="btn btn-sm btn-outline-primary btn-block mb-2">
+                            <i class="fas fa-book mr-1"></i>السنة الأولى
+                        </a>
+                        <a href="{% url 'lessons:year2' %}" class="btn btn-sm btn-outline-primary btn-block mb-2">
+                            <i class="fas fa-book mr-1"></i>السنة الثانية
+                        </a>
+                        <a href="{% url 'lessons:year3' %}" class="btn btn-sm btn-outline-primary btn-block mb-2">
+                            <i class="fas fa-book mr-1"></i>السنة الثالثة
+                        </a>
+                        <a href="{% url 'lessons:year4' %}" class="btn btn-sm btn-outline-primary btn-block mb-2">
+                            <i class="fas fa-book mr-1"></i>السنة الرابعة
+                        </a>
+                        <hr>
+                        <a href="{% url 'lessons:all_years' %}" class="btn btn-sm btn-primary btn-block">
+                            <i class="fas fa-home mr-1"></i>الصفحة الرئيسية
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .border-left-info {
+        border-left: 0.25rem solid #17a2b8 !important;
+    }
+
+    .rounded-lg {
+        border-radius: 0.5rem;
+    }
+
+    .card {
+        transition: box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
+</style>
+{% endblock %}

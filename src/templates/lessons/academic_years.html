@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load lesson_tags %}
+
+{% block title %}السنوات الدراسية - My School{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-5 bg-light">
+    <div class="container">
+        <!-- رأس الصفحة -->
+        <div class="text-center mb-5">
+            <h1 class="display-3 font-weight-bold text-primary mb-3">
+                <i class="fas fa-book-reader mr-3"></i>السنوات الدراسية
+            </h1>
+            <p class="lead text-muted">
+                <i class="fas fa-arrow-down mr-2"></i>اختر السنة الدراسية لعرض جميع الدروس والاختبارات والفروض
+            </p>
+        </div>
+
+        <!-- السنوات الدراسية -->
+        <div class="row">
+            {% for year in academic_years %}
+            <div class="col-md-6 col-lg-3 mb-4">
+                <a href="{% if year.code == 'year1' %}{% url 'lessons:year1' %}{% elif year.code == 'year2' %}{% url 'lessons:year2' %}{% elif year.code == 'year3' %}{% url 'lessons:year3' %}{% else %}{% url 'lessons:year4' %}{% endif %}"
+                    class="text-decoration-none">
+                    <div
+                        class="card h-100 shadow border-0 rounded-lg transition-all year-card {% if year.code == 'year1' %}year-card-primary{% elif year.code == 'year2' %}year-card-success{% elif year.code == 'year3' %}year-card-warning{% else %}year-card-danger{% endif %}">
+                        <div
+                            class="card-header {% if year.code == 'year1' %}bg-primary{% elif year.code == 'year2' %}bg-success{% elif year.code == 'year3' %}bg-warning text-dark{% else %}bg-danger{% endif %} text-white py-3">
+                            <div class="text-center">
+                                <i class="fas fa-graduation-cap" style="font-size: 2rem;"></i>
+                            </div>
+                        </div>
+                        <div class="card-body text-center p-4">
+                            <h5 class="card-title font-weight-bold text-dark mb-3" style="font-size: 1.3rem;">{{
+                                year.name }}</h5>
+
+                            <hr class="my-3">
+
+                            <!-- الإحصائيات -->
+                            <div class="row text-center small">
+                                <div class="col-6 mb-3">
+                                    <div class="stat-value {% if year.code == 'year1' %}text-primary{% elif year.code == 'year2' %}text-success{% elif year.code == 'year3' %}text-warning{% else %}text-danger{% endif %} font-weight-bold"
+                                        style="font-size: 1.5rem;"><i class="fas fa-book mr-2"></i>{{ year.lessons_count
+                                        }}</div>
+                                    <div class="stat-label text-muted"><small>دروس</small></div>
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <div class="stat-value text-info font-weight-bold" style="font-size: 1.5rem;"><i
+                                            class="fas fa-pencil-alt mr-2"></i>{{ year.exams_count }}</div>
+                                    <div class="stat-label text-muted"><small>اختبارات</small></div>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <div class="stat-value text-warning font-weight-bold" style="font-size: 1.5rem;"><i
+                                            class="fas fa-edit mr-2"></i>{{ year.tests_count }}</div>
+                                    <div class="stat-label text-muted"><small>فروض</small></div>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <div class="stat-value text-danger font-weight-bold" style="font-size: 1.5rem;">
+                                        {% with sum=year.lessons_count|add:year.exams_count %}
+                                        <i class="fas fa-sum mr-2"></i>{{ sum|add:year.tests_count }}
+                                        {% endwith %}
+                                    </div>
+                                    <div class="stat-label text-muted"><small>الإجمالي</small></div>
+                                </div>
+                            </div>
+                            <div class="stat-label text-muted"><small>الإجمالي</small></div>
+                        </div>
+                    </div>
+
+                    <hr class="my-3">
+
+                    <button
+                        class="btn {% if year.code == 'year1' %}btn-primary{% elif year.code == 'year2' %}btn-success{% elif year.code == 'year3' %}btn-warning text-dark{% else %}btn-danger{% endif %} btn-block mt-2 font-weight-bold">
+                        <i class="fas fa-arrow-left ml-2"></i>عرض التفاصيل
+                    </button>
+            </div>
+        </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- رسالة إذا لم تكن هناك سنوات -->
+{% if not academic_years %}
+<div class="alert alert-info text-center" role="alert">
+    <h4 class="alert-heading">لا توجد بيانات</h4>
+    <p>لم يتم العثور على أي سنوات دراسية حالياً.</p>
+</div>
+{% endif %}
+</div>
+</div>
+
+<style>
+    .transition-all {
+        transition: all 0.3s ease;
+    }
+
+    .year-card {
+        border-top: 5px solid;
+        transition: all 0.3s ease;
+    }
+
+    .year-card-primary {
+        border-top-color: #007bff;
+    }
+
+    .year-card-success {
+        border-top-color: #28a745;
+    }
+
+    .year-card-warning {
+        border-top-color: #ffc107;
+    }
+
+    .year-card-danger {
+        border-top-color: #dc3545;
+    }
+
+    .year-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.2) !important;
+    }
+
+    .stat-value {
+        display: block;
+        margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    .card-header {
+        border-radius: 0.375rem 0.375rem 0 0;
+    }
+</style>
+{% endblock %}
