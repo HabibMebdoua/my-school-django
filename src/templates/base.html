@@ -16,7 +16,7 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
         <div class="container">
-            <a class="navbar-brand font-weight-bold" href="{% url 'home' %}" style="font-size: 1.5rem;">
+            <a class="navbar-brand font-weight-bold" href="{% url 'main:home' %}" style="font-size: 1.5rem;">
                 <i class="fas fa-school mr-2"></i> My School
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -25,12 +25,15 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link active" href="{% url 'home' %}"><i
-                                class="fas fa-home mr-2 m-2"></i>الرئيسية</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}"><i
-                                class="fas fa-info-circle mr-2 m-2"></i>عن
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'main:home' %}"><i
+                                class="fas fa-home mr-2"></i>الرئيسية</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'main:about' %}"><i
+                                class="fas fa-info-circle mr-2"></i>عن
                             المدرسة</a></li>
-                    
+                    {% if request.session.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'main:logout' %}"><i
+                                class="fas fa-sign-out-alt mr-2"></i>تسجيل الخروج</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

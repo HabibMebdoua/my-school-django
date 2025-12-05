@@ -143,3 +143,26 @@ class Tip(models.Model):
     def __str__(self):
         return f"{self.title} - {self.get_subject_display()} ({self.get_academic_year_display()})"
 
+
+class AccessPassword(models.Model):
+    """مودل كلمة السر للوصول للموقع"""
+    password = models.CharField(
+        max_length=255,
+        verbose_name='كلمة السر',
+        unique=True
+    )
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name='مفعلة'
+    )
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='تاريخ الإنشاء')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='تاريخ التحديث')
+
+    class Meta:
+        verbose_name = 'كلمة السر'
+        verbose_name_plural = 'كلمات السر'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"كلمة السر - {'مفعلة' if self.is_active else 'معطلة'}"
+

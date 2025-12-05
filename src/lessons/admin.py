@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.html import mark_safe
-from .models import Lesson, Exam, Tip
+from .models import Lesson, Exam, Tip, AccessPassword
 
 
 # تخصيص موقع الإدارة الرئيسي
@@ -243,5 +243,46 @@ class TipAdmin(AdminMediaMixin, admin.ModelAdmin):
             preview
         )
     content_preview.short_description = 'معاينة المحتوى'
+
+
+@admin.register(AccessPassword)
+class AccessPasswordAdmin(AdminMediaMixin, admin.ModelAdmin):
+    list_display = ('password_display', 'status_badge', 'created_at')
+    list_filter = ('is_active', 'created_at')
+    search_fields = ('password',)
+    ordering = ('-created_at',)
+    date_hierarchy = 'created_at'
+    
+    fieldsets = (
+        ('كلمة السر', {
+            'fields': ('password', 'is_active')
+        }),
+        ('التواريخ', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    readonly_fields = ('created_at', 'updated_at')
+    
+    def password_display(self, obj):
+        # إخفاء كلمة السر عن الظهور الكامل
+        masked = '*' * len(obj.password)
+        return format_html(
+            '<span style="color: #007bff; font-weight: bold;"><i class="fas fa-lock mr-2"></i>{}</span>',
+            masked
+        )
+    password_display.short_description = 'كلمة السر'
+    
+    def status_badge(self, obj):
+        if obj.is_active:
+            return format_html(
+                '<span style="background-color: #28a745; color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold;">✓ مفعلة</span>'
+            )
+        else:
+            return format_html(
+                '<span style="background-color: #dc3545; color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold;">✗ معطلة</span>'
+            )
+    status_badge.short_description = 'الحالة'
 
 
