@@ -226,25 +226,65 @@
                         <a href="{% url 'lessons:tips_year4' %}" class="btn btn-info btn-block mb-2">
                             <i class="fas fa-lightbulb"></i> عرض النصائح
                         </a>
-                       
+
                     </div>
                 </div>
 
                 <!-- المواد -->
+                {% load lesson_tags %}
                 <div class="card shadow-lg border-0">
-                    <div class="card-header bg-danger text-white">
-                        <h5 class="mb-0"><i class="fas fa-list mr-2"></i>المواد الدراسية</h5>
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="fas fa-list mr-2"></i> المواد الدراسية</h5>
                     </div>
-                    <div class="card-body">
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="text-decoration-none">الرياضيات</a></li>
-                            <li><a href="#" class="text-decoration-none">اللغة العربية</a></li>
-                            <li><a href="#" class="text-decoration-none">اللغة الفرنسية</a></li>
-                            <li><a href="#" class="text-decoration-none">اللغة الانجليزية</a></li>
-                            <li><a href="#" class="text-decoration-none">علوم الطبيعة والحياة</a></li>
-                            <li><a href="#" class="text-decoration-none">الفيزياء</a></li>
-                            <li><a href="#" class="text-decoration-none">الإجتماعيات</a></li>
-                            <li><a href="#" class="text-decoration-none">التربية الإسلامية</a></li>
+                    <div class="card-body p-0">
+                        <ul class="list-unstyled mb-0">
+                            <li style="border-bottom: 1px solid #e9ecef;"><a href="#"
+                                    class="d-block p-3 text-decoration-none transition-all"
+                                    style="color: {{ 'الرياضيات'|subject_color }};"><i
+                                        class="fas m-3 {{ 'الرياضيات'|subject_icon }} fa-2x"
+                                        style="margin-right: 80px;"></i>الرياضيات</a></li>
+                            <li style="border-bottom: 1px solid #e9ecef;"><a href="#"
+                                    class="d-block p-3 text-decoration-none transition-all  m-3"
+                                    style="color: {{ 'اللغة العربية'|subject_color }};"><i
+                                        class="fas m-3 {{ 'اللغة العربية'|subject_icon }} fa-2x"
+                                        style="margin-right: 80px;"></i>اللغة العربية</a></li>
+                            <li style="border-bottom: 1px solid #e9ecef;"><a href="#"
+                                    class="d-block p-3 text-decoration-none transition-all  m-3"
+                                    style="color: {{ 'اللغة الفرنسية'|subject_color }};"><i
+                                        class="fas {{ 'اللغة الفرنسية'|subject_icon }} fa-2x m-3"
+                                        style="margin-right: 80px;"></i>اللغة الفرنسية</a></li>
+                            <li style="border-bottom: 1px solid #e9ecef;"><a href="#"
+                                    class="d-block p-3 text-decoration-none transition-all  m-3"
+                                    style="color: {{ 'اللغة الانجليزية'|subject_color }};"><i
+                                        class="fas {{ 'اللغة الانجليزية'|subject_icon }} fa-2x m-3"
+                                        style="margin-right: 22px;"></i>اللغة الانجليزية</a>
+                            </li>
+                            <li style="border-bottom: 1px solid #e9ecef;"><a href="#"
+                                    class="d-block p-3 text-decoration-none transition-all  m-3"
+                                    style="color: {{ 'علوم الطبيعة والحياة'|subject_color }};"><i
+                                        class="fas {{ 'علوم الطبيعة والحياة'|subject_icon }} fa-2x m-3"
+                                        style="margin-right: 80px;"></i>علوم الطبيعة
+                                    والحياة</a></li>
+                            <li style="border-bottom: 1px solid #e9ecef;"><a href="#"
+                                    class="d-block p-3 text-decoration-none transition-all"
+                                    style="color: {{ 'الفيزياء'|subject_color }};"><i
+                                        class="fas  m-3 {{ 'الفيزياء'|subject_icon }} fa-2x"
+                                        style="margin-right: 80px;"></i>الفيزياء</a></li>
+                            <li style="border-bottom: 1px solid #e9ecef;"><a href="#"
+                                    class="d-block p-3 text-decoration-none transition-all"
+                                    style="color: {{ 'الإجتماعيات'|subject_color }};"><i
+                                        class="fas {{ 'الإجتماعيات'|subject_icon }} fa-2x  m-3"
+                                        style="margin-right: 80px;"></i>الإجتماعيات</a></li>
+                            <li style="border-bottom: 1px solid #e9ecef;"><a href="#"
+                                    class="d-block p-3 text-decoration-none transition-all"
+                                    style="color: {{ 'التربية الإسلامية'|subject_color }};"><i
+                                        class="fas {{ 'التربية الإسلامية'|subject_icon }} fa-2x m-3"
+                                        style="margin-right: 80px;"></i>التربية
+                                    الإسلامية</a></li>
+                            <li><a href="#" class="d-block p-3 text-decoration-none transition-all  m-3"
+                                    style="color: {{ 'الإعلام الآلي'|subject_color }};"><i
+                                        class="fas m-3 {{ 'الإعلام الآلي'|subject_icon }} fa-2x"
+                                        style="margin-right: 80px;"></i>الإعلام الآلي</a></li>
                         </ul>
                     </div>
                 </div>
